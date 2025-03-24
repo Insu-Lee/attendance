@@ -1,0 +1,24 @@
+{
+  "name": "attendance",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd client && npm run start",
+    "test": "cd contract && npm run test",
+    "install": "cd client && npm install && cd .. && cd contract && npm install",
+    "deploy:contract": "cd contract && npm run deploy",
+    "deploy:client": "cd client && npm run deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Insu-Lee/attendance.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Insu-Lee/attendance/issues"
+  },
+  "homepage": "https://github.com/Insu-Lee/attendance#readme",
+  "description": ""
+}
