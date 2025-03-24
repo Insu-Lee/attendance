@@ -35,8 +35,8 @@ contract AttendanceToken is ERC20Permit, Ownable {
     }
 
     constructor()
-        ERC20("MyGasslessToken", "MGT")
-        ERC20Permit("MyGasslessToken")
+        ERC20("RocketBoostToken", "RBT")
+        ERC20Permit("RocketBoostToken")
         Ownable(msg.sender)
     {
         _mint(msg.sender, 1000000 * 10 ** decimals());
