@@ -44,16 +44,11 @@ contract AttendanceToken is ERC20Permit, Ownable {
         maxCallsPerDay = 1; // 1 call
     }
 
-    function permitWithDailyLimit(
-        address owner,
-        address spender,
-        uint256 amount,
-        uint256 deadline,
-        uint8 v,
-        bytes32 r,
-        bytes32 s
-    ) external dailyLimit(owner) {
-        permit(owner, spender, amount, deadline, v, r, s);
+    function attendance(
+        address student,
+        uint256 amount
+    ) public onlyOwner dailyLimit(student) {
+        _transfer(msg.sender, student, amount);
     }
 
     function setLimitTime(uint _limitTime) public onlyOwner {
