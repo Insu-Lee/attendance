@@ -3,6 +3,7 @@ import { makeAbi } from './abiGenerator';
 
 async function main() {
   const tokenContractName = 'AttendanceToken';
+  const questionListName = 'QuestionList';
 
   console.log(`Deploying contracts`);
 
@@ -11,8 +12,15 @@ async function main() {
   const tokenContract = await tokenContractFactory.deploy();
   await tokenContract.waitForDeployment();
 
-  console.log(`Contract deployed at: ${tokenContract.target}`);
+  const questionListFactory = await ethers.getContractFactory(questionListName);
+  const questionList = await questionListFactory.deploy(tokenContract.target);
+  await questionList.waitForDeployment();
+
+  console.log(`${tokenContractName} deployed at: ${tokenContract.target}`);
+  console.log(`${questionListName} deployed at: ${questionList.target}`);
+
   await makeAbi(`${tokenContractName}`, tokenContract.target);
+  await makeAbi(`${questionListName}`, questionList.target);
 }
 
 main().catch((error) => {
