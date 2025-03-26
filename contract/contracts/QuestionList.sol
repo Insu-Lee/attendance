@@ -8,6 +8,7 @@ contract QuestionList is Ownable {
     address public attendanceToken;
     uint256 public constant QUESTION_FEE = 1 ether;
 
+    address[] public allStudents;
     mapping(address => string[]) public questions;
 
     constructor(address _attendanceToken) Ownable(msg.sender) {
@@ -25,9 +26,12 @@ contract QuestionList is Ownable {
         require(bytes(_question).length > 0, "No questions available.");
 
         IERC20 token = IERC20(attendanceToken);
-
         bool success = token.transferFrom(student, address(this), QUESTION_FEE);
         require(success, "Token transfer failed");
+
+        if (questions[student].length == 0) {
+            allStudents.push(student);
+        }
 
         questions[student].push(_question);
         emit Question(student, _question);
@@ -37,6 +41,10 @@ contract QuestionList is Ownable {
         address student
     ) public view returns (string[] memory) {
         return questions[student];
+    }
+
+    function getAllStudents() public view returns (address[] memory) {
+        return allStudents;
     }
 
     function withDrawToken() public onlyOwner {
